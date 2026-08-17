@@ -17,8 +17,10 @@
   numbers: The numbers to use when calculating.
 
 <br/>
+<br/>
 <strong>options:</strong>
 <br/>
   -h, --help            show this help message and exit
+  <br/>
   -v, --verbose         Show extra information.
 </p>
