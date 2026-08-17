@@ -5,6 +5,8 @@ from statistics import multimode
 from operator import sub, truediv
 from rich import print as rprint
 
+
+
 def calculate_power_tower(numbers: list[float]) -> float | int:
     return reduce(lambda x, y: y ** x, reversed(numbers))
 
@@ -17,8 +19,13 @@ parser.add_argument(
     nargs="+",
     help="The numbers to use when calculating.",
 )
+parser.add_argument("-v", "--verbose", action="store_true", help="Show extra information.")
 
 args = parser.parse_args()
+
+if args.verbose:
+    rprint(f"[bold][VERBOSE][/] Input: {args.numbers}")
+    rprint(f"[bold][VERBOSE][/] Operation: {args.operation}")
 
 match args.operation:
     case "add":
@@ -31,23 +38,28 @@ match args.operation:
         try:
             rprint(f"{" / ".join(map(str, args.numbers))} = [#FFA500 bold]{reduce(truediv, args.numbers)}[/]")
         except ZeroDivisionError:
-            rprint("[red bold]Division by 0!!![/]")
+            rprint("[red bold]ZeroDivisionError:[/] Can't divide by 0!")
     case "sqrt":
-        for i in args.numbers:
-            rprint(f"√{i} = [#FFA500 bold]{sqrt(i)}[/]")
+        try:
+            for i in args.numbers:
+                rprint(f"√{i} = [#FFA500 bold]{sqrt(i)}[/]")
+        except ValueError:
+            rprint("[red bold]ValueError:[/] No negative numbers!")
     case "exponent":
         rprint(f"{" ^ ".join(str(x) for x in args.numbers)} = [#FFA500 bold]{calculate_power_tower(args.numbers)}[/]")
     case "mean":
-        rprint(f"The mean of {args.numbers} = [#FFA500 bold]{sum(args.numbers) / 4}[/]")
+        rprint(f"The mean of {args.numbers} is [#FFA500 bold]{sum(args.numbers) / len(args.numberws)}[/]")
     case "median":
         numbers = sorted(args.numbers)
         mid = len(numbers) // 2
+        if args.verbose:
+            rprint(f"[bold][VERBOSE][/] Sorted array: {numbers}")
 
         if len(numbers) % 2 == 0:
             result = (numbers[mid - 1] + numbers[mid]) / 2
         else:
             result = numbers[mid]
-        rprint(f"The median of {args.numbers} = [#FFA500 bold]{result}[/]")
+        rprint(f"The median of {args.numbers} is [#FFA500 bold]{result}[/]")
     case "mode":
         modes = multimode(args.numbers)
         unique_count = len(set(args.numbers))

@@ -1,7 +1,7 @@
 <h1 align="center">
   arg_calc
 </h1>
-<h4 align="center">Latest: v1.1.0</h4>
+<h4 align="center">Latest: v1.2.0</h4>
 
 <br/>
 
@@ -12,7 +12,7 @@
 <p>
 <strong>positional arguments:</strong>
   <br/>
-  add / subtract / multiply / divide / sqrt: The operation to apply to the numbers.
+  {add,subtract,multiply,divide,sqrt,exponent,mean,median,mode}: The operation to apply to the numbers.
   <br/>
   numbers: The numbers to use when calculating.
 
@@ -20,4 +20,5 @@
 <strong>options:</strong>
 <br/>
   -h, --help            show this help message and exit
+  -v, --verbose         Show extra information.
 </p>
