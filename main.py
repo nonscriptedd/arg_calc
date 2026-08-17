@@ -5,9 +5,12 @@ from statistics import multimode
 from operator import sub, truediv
 from rich import print as rprint
 
+def calculate_power_tower(numbers: list[float]) -> float | int:
+    return reduce(lambda x, y: y ** x, reversed(numbers))
+
 parser = argparse.ArgumentParser(description="A simple calculator that works with command line arguments.")
 
-parser.add_argument("operation", choices=["add", "subtract", "multiply", "divide", "sqrt", "mean", "median", "mode"], help="The operation to apply to the numbers.")
+parser.add_argument("operation", choices=["add", "subtract", "multiply", "divide", "sqrt", "exponent", "mean", "median", "mode"], help="The operation to apply to the numbers.")
 parser.add_argument(
     "numbers",
     type=int,
@@ -32,6 +35,8 @@ match args.operation:
     case "sqrt":
         for i in args.numbers:
             rprint(f"√{i} = [#FFA500 bold]{sqrt(i)}[/]")
+    case "exponent":
+        rprint(f"{" ^ ".join(str(x) for x in args.numbers)} = [#FFA500 bold]{calculate_power_tower(args.numbers)}[/]")
     case "mean":
         rprint(f"The mean of {args.numbers} = [#FFA500 bold]{sum(args.numbers) / 4}[/]")
     case "median":
